@@ -1,0 +1,49 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: vsts
+
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: kube-agent-secret 
+  namespace: vsts
+type: Opaque
+data:
+  vsts_token: <token> 
+
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: msftkube-agent
+  namespace: vsts
+spec:
+  replicas: 2
+  template:
+    metadata:
+      namespace: vsts
+      labels:
+        app: msftkube-agent
+    spec:
+      containers:
+      - name: msftkube-agent
+        image: stshriv/kube-agent
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-volume
+        env:
+        - name: VSTS_ACCOUNT
+          value: <account>
+        - name: VSTS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: kube-agent-secret
+              key: vsts_token
+        - name: VSTS_POOL
+          value: <pool>
+      volumes:
+        - name: docker-volume
+          hostPath:
+            path: /var/run/docker.sock
