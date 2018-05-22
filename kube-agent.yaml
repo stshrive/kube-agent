@@ -34,6 +34,8 @@ spec:
         - mountPath: /var/run/docker.sock
           name: docker-volume
         env:
+        - name: VSTS_WORK
+          value: work
         - name: VSTS_ACCOUNT
           value: <account>
         - name: VSTS_TOKEN
