@@ -19,16 +19,6 @@ RUN pip2 -q install --upgrade pip
 RUN pip2 -q install setuptools
 RUN pip2 -q install azure azure-cli
 
-# Install Azure CLI
-#ENV AZ_REPO $(lsb_release -cs)
-#RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main " | \
-#    tee /etc/apt/sources.list.d/azure-cli.list
-
-#RUN curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-#RUN apt-get -qq install -y --no-install-recommends \
-#                apt-transport-https \
-#                azure-cli
-
 # Install Python3 and Python 3 dependencies
 RUN apt-get -qq install -y --no-install-recommends \
                 python3 \
