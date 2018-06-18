@@ -1,4 +1,3 @@
-import requests
 import base64
 
 class APIRequest(object):
@@ -59,5 +58,3 @@ class APIRequest(object):
                 self._headers['Authorization'] = f'Basic {auth.decode("UTF-8")}'
 
         return self._headers
-
-

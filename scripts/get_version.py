@@ -1,3 +1,4 @@
+import requests
 from VSTSRequest import APIRequest
 
 def get_versions(response_data):
