@@ -42,7 +42,7 @@ class APIRequest(object):
                 }
 
             if self._top is None or self._top == 0:
-                del self._params['%5top']
+                del self._params['$top']
 
         return self._params
 
