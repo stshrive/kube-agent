@@ -1,4 +1,5 @@
 import requests
+import base64
 
 class APIRequest(object):
     def __init__(
@@ -54,7 +55,8 @@ class APIRequest(object):
                 }
 
             if self._user is not None and self._auth is not None:
-                self._headers['Authorization'] = f'Basic {self._user}:{self._auth}'
+                auth = base64.b64encode(f'{self._user}:{self._auth}'.encode())
+                self._headers['Authorization'] = f'Basic {auth.decode("UTF-8")}'
 
         return self._headers
 
@@ -70,7 +72,7 @@ def main(account, project, definition, status, total, version, user, token):
     print(f'Request Headers: {req.headers}')
     print(f'Request Parameters: {req.params}')
 
-    response = requests.get(req.url, req.params, headers=req.headers)
+    response = requests.get(req.url, params=req.params, headers=req.headers)
 
     versions = get_versions(response)
 
