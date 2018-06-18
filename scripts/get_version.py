@@ -1,11 +1,13 @@
 import requests
 from VSTSRequest import APIRequest
 
-def get_versions(response_data):
-    print(f'status code: {response_data.status_code}')
-    for h in response_data.history:
-        print(f'{h.url}: {h.status_code}')
-    print(f'content:\n{str(response_data.content)}')
+def get_builds(response):
+    print(f'status code: {response.status_code}')
+    builds = []
+    for build in response.json()['value']:
+        builds.append(build['id'])
+
+    return builds
 
 def main(account, project, definition, status, total, version, user, token):
     req = APIRequest(version, account, project, definition, status, total, user, auth=token)
@@ -16,7 +18,10 @@ def main(account, project, definition, status, total, version, user, token):
 
     response = requests.get(req.url, params=req.params, headers=req.headers)
 
-    versions = get_versions(response)
+    versions = get_builds(response)
+    versions = ';'.join(versions)
+
+    os.environ['MSFTKUBE_VERSIONS'] = versions
 
 def get_args():
     import argparse
