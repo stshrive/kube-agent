@@ -41,5 +41,8 @@ RUN pip3 -q install setuptools
 RUN rm -rf ~/.cache/pip
 RUN pip3 -q install https://msftkube.blob.core.windows.net/public/msftkube-1.0.996349-py3-none-any.whl
 
+#task.py in aether uses appliction insights for reporting. 
+RUN pip3 -q install applicationinsights==0.11.3
+
 # Install kubctl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.10.3/bin/linux/amd64/kubectl
