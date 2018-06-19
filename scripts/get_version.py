@@ -3,11 +3,7 @@ from VSTSRequest import APIRequest
 
 def get_builds(response):
     print(f'status code: {response.status_code}')
-    builds = []
-    for build in response.json()['value']:
-        builds.append(build['id'])
-
-    return builds
+    return [build['id'] for build in response.json()['value']]
 
 def main(account, project, definition, status, total, version, user, token):
     req = APIRequest(version, account, project, definition, status, total, user, auth=token)
