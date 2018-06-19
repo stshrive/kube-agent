@@ -3,13 +3,13 @@ from VSTSRequest import APIRequest
 
 def get_builds(response):
     print(f'status code: {response.status_code}')
-    return [build['id'] for build in response.json()['value']]
+    return [str(build['id']) for build in response.json()['value']]
 
 def main(account, project, definition, branch, status, total, version, user, token):
+    import os
     req = APIRequest(version, account, project, definition, branch, status, total, user, auth=token)
 
     print(f'Sending request to: {req.url}')
-    print(f'Request Headers: {req.headers}')
     print(f'Request Parameters: {req.params}')
 
     response = requests.get(req.url, params=req.params, headers=req.headers)
@@ -32,7 +32,7 @@ def get_args():
     parser.add_argument('-a', '--account')
     parser.add_argument('-s', '--buildstatus')
     parser.add_argument('-p', '--project')
-    parser.add_argument('-b', '--branch', default='master')
+    parser.add_argument('-b', '--branch', default='refs/head/master')
 
     args = parser.parse_args()
 
