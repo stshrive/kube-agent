@@ -5,8 +5,8 @@ def get_builds(response):
     print(f'status code: {response.status_code}')
     return [build['id'] for build in response.json()['value']]
 
-def main(account, project, definition, status, total, version, user, token):
-    req = APIRequest(version, account, project, definition, status, total, user, auth=token)
+def main(account, project, definition, branch, status, total, version, user, token):
+    req = APIRequest(version, account, project, definition, branch, status, total, user, auth=token)
 
     print(f'Sending request to: {req.url}')
     print(f'Request Headers: {req.headers}')
@@ -32,6 +32,7 @@ def get_args():
     parser.add_argument('-a', '--account')
     parser.add_argument('-s', '--buildstatus')
     parser.add_argument('-p', '--project')
+    parser.add_argument('-b', '--branch', default='master')
 
     args = parser.parse_args()
 
@@ -39,6 +40,7 @@ def get_args():
             args.account,
             args.project,
             str(args.definition),
+            args.branch,
             args.buildstatus,
             str(args.count),
             str(args.version),

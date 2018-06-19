@@ -7,6 +7,7 @@ class APIRequest(object):
             account,
             project,
             definition,
+            branch,
             status,
             total,
             user = None,
@@ -16,6 +17,7 @@ class APIRequest(object):
         self._acc  = account
         self._proj = project
         self._def  = definition
+        self._bran = branch
         self._stat = status
         self._top  = total
         self._user = user
@@ -39,6 +41,7 @@ class APIRequest(object):
                     'definitions'  : self._def,
                     'resultFilter' : self._stat,
                     '$top'         : self._top,
+                    'branchName'   : self._bran,
                 }
 
             if self._top is None or self._top == 0:
