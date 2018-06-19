@@ -19,16 +19,6 @@ RUN pip2 -q install --upgrade pip
 RUN pip2 -q install setuptools
 RUN pip2 -q install azure azure-cli
 
-# Install Azure CLI
-#ENV AZ_REPO $(lsb_release -cs)
-#RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main " | \
-#    tee /etc/apt/sources.list.d/azure-cli.list
-
-#RUN curl -L https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-#RUN apt-get -qq install -y --no-install-recommends \
-#                apt-transport-https \
-#                azure-cli
-
 # Install Python3 and Python 3 dependencies
 RUN apt-get -qq install -y --no-install-recommends \
                 python3 \
@@ -38,8 +28,10 @@ RUN pip3 -q install --upgrade pip
 RUN pip3 -q install setuptools
 
 # MSFTKube
+ENV MSFTKUBE_VER 1.0.996349
+
 RUN rm -rf ~/.cache/pip
-RUN pip3 -q install https://msftkube.blob.core.windows.net/public/msftkube-1.0.996349-py3-none-any.whl
+RUN pip3 -q install https://msftkube.blob.core.windows.net/public/msftkube-$MSFTKUBE_VER-py3-none-any.whl
 
 #task.py in aether uses appliction insights for reporting. 
 RUN pip3 -q install applicationinsights==0.11.3
