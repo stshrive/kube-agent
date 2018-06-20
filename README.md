@@ -13,4 +13,4 @@ msftkube versions are based on succesful VSTS builds. To build the latest versio
 
 By using the following command in a VSTS build definition you can retrieve the build IDs for tagging and versioninsg a docker image:
 
-`python3 ./get_version.py -v <api-version> -d <build-definition> -t <PAT> -a <account> -p <project> -s <build-status> -u <username> -c <number-of-builds-to-retrieve>`
+`python3 ./get_version.py -v <api-version> -d <build-definition> -t <PAT> -a <account> -p <project> -b <branch-name> -s <build-status> -u <username> -c <number-of-builds-to-retrieve>`
