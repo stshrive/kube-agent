@@ -2,15 +2,15 @@ import requests
 from VSTSRequest import APIRequest
 
 def get_builds(response):
-    print(f'status code: {response.status_code}')
+    print('status code: {r.status_code}'.format(r=response))
     return [str(build['id']) for build in response.json()['value']]
 
 def main(account, project, definition, branch, status, total, version, user, token):
     import os
     req = APIRequest(version, account, project, definition, branch, status, total, user, auth=token)
 
-    print(f'Sending request to: {req.url}')
-    print(f'Request Parameters: {req.params}')
+    print('Sending request to: {r.url}'.format(r = req))
+    print('Request Parameters: {r.params}'.format(r = req))
 
     response = requests.get(req.url, params=req.params, headers=req.headers)
 
