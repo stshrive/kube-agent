@@ -30,7 +30,7 @@ def get_args():
 
     parser = argparse.ArgumentParser(sys.argv[0])
     parser.add_argument('-v', '--version', type=float, default=4.1)
-    parser.add_argument('-b', '--branch', default='refs/head/master')
+    parser.add_argument('-b', '--branch', default='refs/heads/master')
     parser.add_argument('-c', '--count', type=int, default=0)
     parser.add_argument('-d', '--definition', type=int)
     parser.add_argument('-V', '--verbose', action='store_true')
