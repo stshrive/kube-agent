@@ -61,7 +61,7 @@ class APIRequest(object):
                 auth = base64.b64encode('{s._user}:{s._auth}'.format(s = self).encode())
                 auth_header = 'Basic {}'.format(auth.decode("UTF-8"))
 
-            if self_user is None and self._auth is not None:
+            if self._user is None and self._auth is not None:
                 auth_header = 'Bearer {}'.format(self._auth)
 
             if auth_header is not None:
