@@ -30,7 +30,7 @@ class APIRequest(object):
     @property
     def url(self):
         if self._url is None:
-            self._url = f'https://{self._acc}.visualstudio.com/{self._proj}/_apis/build/builds'
+            self._url = 'https://{s._acc}.visualstudio.com/{s._proj}/_apis/build/builds'.format(s = self)
         return self._url
 
     @property
@@ -57,7 +57,7 @@ class APIRequest(object):
                 }
 
             if self._user is not None and self._auth is not None:
-                auth = base64.b64encode(f'{self._user}:{self._auth}'.encode())
-                self._headers['Authorization'] = f'Basic {auth.decode("UTF-8")}'
+                auth = base64.b64encode('{s._user}:{s._auth}'.format(s = self).encode())
+                self._headers['Authorization'] = 'Basic {a}'.format(a = auth.decode("UTF-8"))
 
         return self._headers
