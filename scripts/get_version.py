@@ -5,12 +5,14 @@ def get_builds(response):
     print('status code: {r.status_code}'.format(r=response))
     return [str(build['id']) for build in response.json()['value']]
 
-def main(account, project, definition, branch, status, total, version, user, token, oauth):
+def main(account, project, definition, branch, status, total, version, user, token, oauth, verbose=False):
     import os
     req = APIRequest(version, account, project, definition, branch, status, total, user, auth=token)
 
-    print('Sending request to: {r.url}'.format(r = req))
-    print('Request Parameters: {r.params}'.format(r = req))
+    if verbose:
+        print(
+            'Request URL:\n{r.url}\nRequest Headers:\n{r.headers}\nRequest Parameters:\n{r.params}'.format(
+                r = req))
 
     response = requests.get(req.url, params=req.params, headers=req.headers)
 
@@ -28,7 +30,7 @@ def get_args():
     parser.add_argument('-b', '--branch', default='refs/head/master')
     parser.add_argument('-c', '--count', type=int, default=0)
     parser.add_argument('-d', '--definition', type=int)
-    parser.add_argument('-T', '--oauthtoken', default=None)
+    parser.add_argument('-V', '--verbose', action='store_true')
     parser.add_argument('-t', '--token', default=None)
     parser.add_argument('-u', '--user', default=None)
     parser.add_argument('-a', '--account')
