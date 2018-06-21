@@ -16,6 +16,9 @@ def main(account, project, definition, branch, status, total, version, user, tok
 
     response = requests.get(req.url, params=req.params, headers=req.headers)
 
+    if verbose:
+        print('Response content: {}'.format(response.content.decode()))
+
     versions = get_builds(response)
     versions = ';'.join(versions)
 
