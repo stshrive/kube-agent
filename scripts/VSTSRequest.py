@@ -44,7 +44,7 @@ class APIRequest(object):
                     'branchName'   : self._bran,
                 }
 
-            if self._top is None or self._top == 0:
+            if self._top is None or int(self._top) == 0:
                 del self._params['$top']
 
         return self._params
