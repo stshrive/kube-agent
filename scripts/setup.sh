@@ -10,8 +10,14 @@ popd > /dev/null
 
 
 sudo apt-get update 2>&1
-sudo apt-get install -y --no-install-recommends python3-pip >&1
 
-pip3 -q install  --upgrade pip
-pip3 -q install -r $ROOT_PATH/requirements.txt
+# uninstall pip to prevent import main issue in pip module
+sudo python3 -m pip uninstall pip
+
+# reinstall pip and upgrade pip
+sudo apt-get -y --no-install-recommends install python3-pip --reinstall
+python3 -m pip install pip --upgrade
+
+# install our requirements
+python3 -m pip3 install -r $ROOT_PATH/requirements.txt
 
