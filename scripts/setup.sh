@@ -19,5 +19,5 @@ sudo apt-get -y --no-install-recommends install python3-pip --reinstall
 python3 -m pip install pip --upgrade
 
 # install our requirements
-python3 -m pip3 install -r $ROOT_PATH/requirements.txt
+python3 -m pip install -r $ROOT_PATH/requirements.txt
 
