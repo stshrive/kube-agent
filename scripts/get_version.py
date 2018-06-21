@@ -5,7 +5,7 @@ def get_builds(response):
     print('status code: {r.status_code}'.format(r=response))
     return [str(build['id']) for build in response.json()['value']]
 
-def main(account, project, definition, branch, status, total, version, user, token):
+def main(account, project, definition, branch, status, total, version, user, token, oauth):
     import os
     req = APIRequest(version, account, project, definition, branch, status, total, user, auth=token)
 
@@ -25,14 +25,15 @@ def get_args():
 
     parser = argparse.ArgumentParser(sys.argv[0])
     parser.add_argument('-v', '--version', type=float, default=4.1)
+    parser.add_argument('-b', '--branch', default='refs/head/master')
     parser.add_argument('-c', '--count', type=int, default=0)
     parser.add_argument('-d', '--definition', type=int)
+    parser.add_argument('-T', '--oauthtoken', default=None)
     parser.add_argument('-t', '--token', default=None)
     parser.add_argument('-u', '--user', default=None)
     parser.add_argument('-a', '--account')
     parser.add_argument('-s', '--buildstatus')
     parser.add_argument('-p', '--project')
-    parser.add_argument('-b', '--branch', default='refs/head/master')
 
     args = parser.parse_args()
 
@@ -45,7 +46,8 @@ def get_args():
             str(args.count),
             str(args.version),
             args.user,
-            args.token
+            args.token,
+            args.oauthtoken,
         ]
 
 

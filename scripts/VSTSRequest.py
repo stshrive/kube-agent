@@ -56,8 +56,15 @@ class APIRequest(object):
                     'Accept' : 'application/json'
                 }
 
+            auth_header = None
             if self._user is not None and self._auth is not None:
                 auth = base64.b64encode('{s._user}:{s._auth}'.format(s = self).encode())
-                self._headers['Authorization'] = 'Basic {a}'.format(a = auth.decode("UTF-8"))
+                auth_header = 'Basic {}'.format(auth.decode("UTF-8"))
+
+            if self_user is None and self._auth is not None:
+                auth_header = 'Bearer {}'.format(self._auth)
+
+            if auth_header is not None:
+                self._headers['Authorization'] = auth_header
 
         return self._headers
