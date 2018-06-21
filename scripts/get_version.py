@@ -20,7 +20,7 @@ def main(account, project, definition, branch, status, total, version, user, tok
         print('Response content: {}'.format(response.content.decode()))
 
     versions = get_builds(response)
-    versions = ';'.join(versions)
+    versions = ' '.join(versions)
 
     os.environ['MSFTKUBE_VERSIONS'] = versions
 
