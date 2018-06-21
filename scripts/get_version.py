@@ -5,7 +5,7 @@ def get_builds(response):
     print('status code: {r.status_code}'.format(r=response))
     return [str(build['id']) for build in response.json()['value']]
 
-def main(account, project, definition, branch, status, total, version, user, token, oauth, verbose=False):
+def main(account, project, definition, branch, status, total, version, user, token, verbose=False):
     import os
     req = APIRequest(version, account, project, definition, branch, status, total, user, auth=token)
 
@@ -49,7 +49,7 @@ def get_args():
             str(args.version),
             args.user,
             args.token,
-            args.oauthtoken,
+            args.verbose,
         ]
 
 
