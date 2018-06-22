@@ -21,4 +21,4 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
         echo rendering dockerfile for version $version
         render dockerfile.template $version > $version/dockerfile
     done
-done
+done < $versionfile
