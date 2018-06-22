@@ -24,8 +24,6 @@ def main(
 
     verbose = kwargs.get('verbose', False)
 
-    print(args)
-    print(kwargs)
     if verbose:
         print(
             'Request URL:\n{r.url}\nRequest Headers:\n{r.headers}\nRequest Parameters:\n{r.params}'.format(
