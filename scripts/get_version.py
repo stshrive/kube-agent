@@ -39,9 +39,11 @@ def main(
 
     if kwargs.get('vsts', False):
         print('creating vsts variable')
-        print(
-            '##vso[task.setvariable variable={var_name};isOutput=true]{var_val}'.format(
-                var_name = env_var, var_val = env_val))
+        with open(env_var, 'w') as f:
+            f.write(env_val)
+
+        #print('##vso[task.setvariable variable={var_name};isOutput=true]{var_val}'.format(
+                #var_name = env_var, var_val = env_val))
     else:
         os.environ['{}'.format(env_var)] = env_val
 
