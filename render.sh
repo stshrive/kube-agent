@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-if [ $# > 1 ]; then exit 1; fi
-if [ $# < 1 ]; then exit 2; fi
+if [ $# -ne 2 ]
+then 
+    echo requires two arguments
+    exit 1
+fi
 
 placeholder=$1
 versions=$2
