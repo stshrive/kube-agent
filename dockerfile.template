@@ -31,7 +31,7 @@ RUN pip3 -q install setuptools
 ENV MSFTKUBE_VER %%MSFTKUBE_VERSION%%
 
 RUN rm -rf ~/.cache/pip
-RUN pip3 -q install https://msftkube.blob.core.windows.net/public/msftkube-$MSFTKUBE_VER-py3-none-any.whl
+RUN pip3 -q install https://msftkube.blob.core.windows.net/public/msftkube-1.0.$MSFTKUBE_VER-py3-none-any.whl
 
 #task.py in aether uses appliction insights for reporting. 
 RUN pip3 -q install applicationinsights==0.11.3
