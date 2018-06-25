@@ -2,52 +2,72 @@ import requests
 from VSTSRequest import APIRequest
 
 def get_builds(response):
-    print(f'status code: {response.status_code}')
+    print('status code: {r.status_code}'.format(r=response))
     return [str(build['id']) for build in response.json()['value']]
 
-def main(account, project, definition, branch, status, total, version, user, token):
+def main(
+        account,
+        project,
+        definition,
+        branch,
+        buildstatus,
+        count,
+        version,
+        user,
+        token,
+        *args,
+        **kwargs):
     import os
-    req = APIRequest(version, account, project, definition, branch, status, total, user, auth=token)
 
-    print(f'Sending request to: {req.url}')
-    print(f'Request Parameters: {req.params}')
-
+    req = APIRequest(version, account, project, definition, branch, buildstatus, count, user, token)
     response = requests.get(req.url, params=req.params, headers=req.headers)
 
-    versions = get_builds(response)
-    versions = ';'.join(versions)
+    verbose = kwargs.get('verbose', False)
 
-    os.environ['MSFTKUBE_VERSIONS'] = versions
+    if verbose:
+        print(
+            'Request URL:\n{r.url}\nRequest Headers:\n{r.headers}\nRequest Parameters:\n{r.params}'.format(
+                r = req))
+
+
+    if verbose:
+        print('Response content: {}'.format(response.content.decode()))
+
+    env_val = get_builds(response)
+    env_val = ' '.join(env_val)
+    env_var = kwargs.get('environmentOutput', 'GET_VERSION_OUT')
+
+    if kwargs.get('vsts', False):
+        print('Writing vsts variable to file {}'.format(env_var))
+        with open(env_var, 'w') as f:
+            f.write(env_val)
+        print('Finished writing file {}'.format(env_var))
+    else:
+        os.environ['{}'.format(env_var)] = env_val
 
 def get_args():
     import argparse
     import sys
 
     parser = argparse.ArgumentParser(sys.argv[0])
-    parser.add_argument('-v', '--version', type=float, default=4.1)
+    parser.add_argument('-a', '--account', required=True)
+    parser.add_argument('-b', '--branch', default='refs/heads/master')
     parser.add_argument('-c', '--count', type=int, default=0)
-    parser.add_argument('-d', '--definition', type=int)
+    parser.add_argument('-d', '--definition', type=int, required=True)
+    parser.add_argument('-e', '--environmentOutput')
+    parser.add_argument('-p', '--project', required=True)
+    parser.add_argument('-s', '--buildstatus')
     parser.add_argument('-t', '--token', default=None)
     parser.add_argument('-u', '--user', default=None)
-    parser.add_argument('-a', '--account')
-    parser.add_argument('-s', '--buildstatus')
-    parser.add_argument('-p', '--project')
-    parser.add_argument('-b', '--branch', default='refs/head/master')
+    parser.add_argument('-v', '--version', type=float, default=4.1)
+    parser.add_argument('-V', '--verbose', action='store_true')
+
+    parser.add_argument('--vsts', action='store_true')
 
     args = parser.parse_args()
 
-    return [
-            args.account,
-            args.project,
-            str(args.definition),
-            args.branch,
-            args.buildstatus,
-            str(args.count),
-            str(args.version),
-            args.user,
-            args.token
-        ]
+    return args.__dict__
 
 
 if __name__ == '__main__':
-    main(*get_args())
+    main(**get_args())
