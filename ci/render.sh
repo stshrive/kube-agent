@@ -6,9 +6,9 @@ then
     exit 1
 fi
 
-placeholder=$1
-versionfile=$2
-outputfile=$3
+versionfile=$1
+outputfile=$2
+placeholder=$3
 
 render() {
     template=$1
