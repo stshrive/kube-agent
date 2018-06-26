@@ -18,6 +18,8 @@ render() {
     sed -r "$sub" $template
 }
 
+# The file containing the version information gets piped into
+# the loop below.
 while IFS='' read -r line || [[ -n "$line" ]]; do
     for version in $line
     do
