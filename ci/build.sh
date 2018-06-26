@@ -21,7 +21,7 @@ build() {
     tag=$registry:$registry_port/kube-agent:$version
 
     echo Building image $tag
-    docker build . -f $dockerfile -t $tag 
+    docker build $(dirname "$dockerfile") -f $dockerfile -t $tag 
 
     echo Pushing image $tag
     docker push $tag
