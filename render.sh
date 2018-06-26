@@ -10,8 +10,11 @@ placeholder=$1
 versionfile=$2
 
 render() {
-    sub="s~$placeholder~$2~g;"
-    sed -r "$sub" $1
+    template=$1
+    version_number=$2
+
+    sub="s~$placeholder~$version_number~g;"
+    sed -r "$sub" $template
 }
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
