@@ -13,9 +13,6 @@ dockerfiles=$2
 build() {
     dockerfile=$1
     version=$2
-    
-    echo Dockerfile: $dockerfile
-    echo Version: $version
 
     tag=$registry/kube-agent:$version
 
