@@ -10,6 +10,11 @@ versionfile=$1
 outputfile=$2
 placeholder=$3
 
+pushd $(dirname "$0") > /dev/null
+WORKING_DIR=$(pwd)
+ROOT_DIR=../$(pwd)
+popd > /dev/null
+
 render() {
     template=$1
     version_number=$2
@@ -23,12 +28,12 @@ render() {
 while IFS='' read -r line || [[ -n "$line" ]]; do
     for version in $line
     do
-        mkdir $version
+        mkdir $WORKING_DIR/$version
         echo rendering dockerfile for version $version
-        render ../dockerfile.template $version > $version/dockerfile
+        render $ROOT_DIR/dockerfile.template $version > $version/dockerfile
 
-        pushd $(dirname "$0")/$version > /dev/null
-        echo $(pwd)/dockerfile $version >> ../$outputfile
+        pushd $WORKING_DIR/$version > /dev/null
+        echo $(pwd)/dockerfile $version >> $WORKING_DIR/$outputfile
         popd > /dev/null
     done
 done < $versionfile
