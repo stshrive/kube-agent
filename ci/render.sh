@@ -14,7 +14,7 @@ placeholder=$3
 
 pushd $(dirname "$0") > /dev/null
 WORKING_DIR=$(pwd)
-ROOT_DIR=../$(pwd)
+ROOT_DIR=$(pwd)/..
 popd > /dev/null
 
 render() {
