@@ -2,7 +2,7 @@
 
 if [ $# -ne 3 ]
 then 
-    echo "$0 requires two arguments [placehoder, versions (file), outputfile]"
+    echo "$0 requires three arguments [placehoder, versions (file), outputfile]"
     exit 1
 fi
 
