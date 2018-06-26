@@ -10,7 +10,7 @@ set -e
 
 pushd $(dirname "$0") > /dev/null
 WORKING_DIR=$(pwd)
-popd > /de/null
+popd > /dev/null
 
 registry=$1
 dockerfiles=$WORKING_DIR/$2
