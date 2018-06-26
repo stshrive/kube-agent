@@ -6,8 +6,12 @@ then
     exit 1
 fi
 
+pushd $(dirname "$0") > /dev/null
+WORKING_DIR=$(pwd)
+popd > /de/null
+
 registry=$1
-dockerfiles=$2
+dockerfiles=$WORKING_DIR/$2
 
 # Builds a docker image
 build() {
