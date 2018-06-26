@@ -28,11 +28,12 @@ render() {
 while IFS='' read -r line || [[ -n "$line" ]]; do
     for version in $line
     do
-        mkdir $WORKING_DIR/$version
+        dir=$WORKING_DIR/$version
+        mkdir $dir
         echo rendering dockerfile for version $version
-        render $ROOT_DIR/dockerfile.template $version > $version/dockerfile
+        render $ROOT_DIR/dockerfile.template $version > $dir/dockerfile
 
-        pushd $WORKING_DIR/$version > /dev/null
+        pushd $dir > /dev/null
         echo $(pwd)/dockerfile $version >> $WORKING_DIR/$outputfile
         popd > /dev/null
     done
