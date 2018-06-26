@@ -7,4 +7,4 @@ ROOT_PATH=$(pwd)
 popd > /dev/null
 
 # get build versions
-eval $(python3 $ROOT_PATH/scripts/get_version.py "$@")
+python3 $ROOT_PATH/scripts/get_version.py "$@"
