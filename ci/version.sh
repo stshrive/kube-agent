@@ -6,5 +6,7 @@ pushd $(dirname "$0") > /dev/null
 ROOT_PATH=$(pwd)
 popd > /dev/null
 
+set -e
+
 # get build versions
 python3 $ROOT_PATH/scripts/get_version.py "$@"

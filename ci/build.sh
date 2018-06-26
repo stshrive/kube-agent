@@ -6,6 +6,8 @@ then
     exit 1
 fi
 
+set -e
+
 pushd $(dirname "$0") > /dev/null
 WORKING_DIR=$(pwd)
 popd > /de/null

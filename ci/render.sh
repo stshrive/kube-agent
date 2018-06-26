@@ -6,6 +6,8 @@ then
     exit 1
 fi
 
+set -e
+
 versionfile=$1
 outputfile=$2
 placeholder=$3
