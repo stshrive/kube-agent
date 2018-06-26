@@ -34,7 +34,7 @@ def main(
     env_val = ' '.join(env_val)
     env_var = kwargs.get('environmentOutput', 'GET_VERSION_OUT')
 
-    print('Writing vsts variable to file {}'.format(env_var))
+    print('Writing versions to file {}'.format(env_var))
     with open(env_var, 'w') as f:
         f.write(env_val)
     print('Finished writing file {}'.format(env_var))
