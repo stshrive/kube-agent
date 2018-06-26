@@ -25,7 +25,7 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     do
         mkdir $version
         echo rendering dockerfile for version $version
-        render dockerfile.template $version > $version/dockerfile
+        render ../dockerfile.template $version > $version/dockerfile
 
         pushd $(dirname "$0")/$version > /dev/null
         echo $(pwd)/dockerfile $version >> ../$outputfile
