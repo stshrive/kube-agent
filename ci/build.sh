@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-if [ $# -ne 3 ]
+if [ $# -ne 2 ]
 then 
-    echo "$0 requires two arguments [Container Registry URL, Container Registry PORT, Dockerfiles (file)]"
+    echo "$0 requires two arguments [Container Registry URL, Dockerfiles (file)]"
     exit 1
 fi
 
 registry=$1
-registry_port=$2
-dockerfiles=$3
+dockerfiles=$2
 
 # Builds a docker image
 build() {
@@ -18,7 +17,7 @@ build() {
     echo Dockerfile: $dockerfile
     echo Version: $version
 
-    tag=$registry:$registry_port/kube-agent:$version
+    tag=$registry/kube-agent:$version
 
     echo Building image $tag
     docker build $(dirname "$dockerfile") -f $dockerfile -t $tag 
