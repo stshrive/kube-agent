@@ -28,9 +28,6 @@ def main(
         print(
             'Request URL:\n{r.url}\nRequest Headers:\n{r.headers}\nRequest Parameters:\n{r.params}'.format(
                 r = req))
-
-
-    if verbose:
         print('Response content: {}'.format(response.content.decode()))
 
     env_val = get_builds(response)
