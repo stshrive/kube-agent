@@ -14,7 +14,14 @@ sudo add-apt-repository -y \
 
 sudo apt-get update 2>&1
 
-sudo apt-get install docker-ce
+sudo apt-get -y --no-install-recommends install docker-ce
+
+# uninstall pip to prevent import main issue in pip module
+sudo python3 -m pip uninstall pip
+
+# reinstall pip and upgrade pip
+sudo apt-get -y --no-install-recommends install python3-pip --reinstall
+python3 -m pip install pip --upgrade
 
 # install our requirements
 python3 -m pip install -r $ROOT_PATH/requirements.txt
