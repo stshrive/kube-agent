@@ -44,7 +44,7 @@ build() {
 
 if [ $login ]; then
     # Login to custom docker registries.
-    cat $password | docker login $registry --username $username --password-stdin
+    echo $password | docker login $registry --username $username --password-stdin
 fi
 
 # The file containing the generated dockerfiles gets piped into
