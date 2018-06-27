@@ -9,6 +9,8 @@ then
         echo "arguments for $0 are [Dockerfiles (file), <Registry>, <Username>, <Password>]"
         exit 1
     fi
+else
+    login=true
 fi
 
 set -e
