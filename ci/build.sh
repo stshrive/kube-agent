@@ -23,8 +23,6 @@ if [ $login ]; then
     registry=$2/
     username=$3
     password=$4
-else
-    registry=''
 fi
 
 # Builds a docker image
@@ -32,7 +30,7 @@ build() {
     dockerfile=$1
     version=$2
 
-    tag=$(registry)kube-agent:$version
+    tag=${registry}kube-agent:$version
 
     echo Building image $tag
     docker build $(dirname "$dockerfile") -f $dockerfile -t $tag 
