@@ -1,0 +1,46 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "vsts-agent.fullname" . }}
+  labels:
+    app: {{ template "vsts-agent.name" . }}
+    chart: {{ template "vsts-agent.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "vsts-agent.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "vsts-agent.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        resources:
+          {{- toYaml .Values.resources | indent 12 }}
+        volumeMounts:
+        - mountPath: /var/run/docker.sock
+          name: docker-volume
+        env:
+        - name: VSTS_ACCOUNT
+          value: {{ required "VSTS Account: .Values.vsts.account required!" .Values.vsts.account }}
+        - name: VSTS_WORK
+          value: {{ required "VSTS Work: .Values.vsts.work required!" .Values.vsts.work }}
+        - name: VSTS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: {{ template "vsts-agent.fullname" . }}
+              key: vsts_token
+        - name: VSTS_POOL
+          value: {{ required "VSTS Pool name: .Values.vsts.pool required!" .Values.vsts.pool }}
+      volumes:
+        - name: docker-volume
+          hostPath:
+            path: /var/run/docker.sock
