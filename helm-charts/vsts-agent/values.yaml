@@ -9,6 +9,10 @@ image:
   # tag has to be a string, please quote it
   tag: "1094096"
   pullPolicy: IfNotPresent
+  # Name of the pre-provisioned imagePullSecret that provides access to the ACR
+  # that hosts the namespace-cleaner image
+  # pullSecrets: 
+  # - "airsharedcontainers"
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
