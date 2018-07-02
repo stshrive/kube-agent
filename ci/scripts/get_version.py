@@ -28,22 +28,16 @@ def main(
         print(
             'Request URL:\n{r.url}\nRequest Headers:\n{r.headers}\nRequest Parameters:\n{r.params}'.format(
                 r = req))
-
-
-    if verbose:
         print('Response content: {}'.format(response.content.decode()))
 
     env_val = get_builds(response)
     env_val = ' '.join(env_val)
     env_var = kwargs.get('environmentOutput', 'GET_VERSION_OUT')
 
-    if kwargs.get('vsts', False):
-        print('Writing vsts variable to file {}'.format(env_var))
-        with open(env_var, 'w') as f:
-            f.write(env_val)
-        print('Finished writing file {}'.format(env_var))
-    else:
-        os.environ['{}'.format(env_var)] = env_val
+    print('Writing versions to file {}'.format(env_var))
+    with open(env_var, 'w') as f:
+        f.write(env_val)
+    print('Finished writing file {}'.format(env_var))
 
 def get_args():
     import argparse
@@ -61,8 +55,6 @@ def get_args():
     parser.add_argument('-u', '--user', default=None)
     parser.add_argument('-v', '--version', type=float, default=4.1)
     parser.add_argument('-V', '--verbose', action='store_true')
-
-    parser.add_argument('--vsts', action='store_true')
 
     args = parser.parse_args()
 
