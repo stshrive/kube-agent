@@ -17,13 +17,7 @@ When tagging our images, we wish to use the build version of msftkube which are 
 
 To build the latest version of this container you will need access to the VSTS build definition of msftkube. 
 
-Within a VSTS build definition you can retrieve the build IDs for tagging and versioning a docker image
-
-e.g.
-`ci/version.sh -v <api-version> -d <build-definition> -t <PAT> -a <account> -p <project> -b <branch-name> -s <build-status> -u <username> -c <number-of-builds-to-retrieve>`
-
 ## Continuous Integration
-
 ### setup.sh
 *setup.sh* is the first stage for continuous integration on a VSTS agent machine. This script installs other continuous integration dependencies on the agent machine to ensure the default VSTS agents can run the scripts. Simply add a Shell++ task to your build definition and set the script path to ci/setup.sh with no parameters.
 
@@ -47,6 +41,9 @@ Parameters:
 |      -u       | --user             | string |          |     NoneType      | Username associated with token  |
 |      -v       | --version          | float  |          |       4.1         | VSTS REST API version           |
 |      -V       | --verbose          | boolean|          |      False        | Print verbose output            |
+
+e.g.
+`ci/version.sh -v <api-version> -d <build-definition> -t <PAT> -a <account> -p <project> -b <branch-name> -s <build-status> -u <username> -c <number-of-builds-to-retrieve>`
 
 ### render.sh
 *render.sh* handles the creation of version specific dockerfiles by substituting placeholder text within dockerfile.template.
