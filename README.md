@@ -9,6 +9,9 @@ Packaged on Docker Hub:
 https://hub.docker.com/r/stshriv/kube-agent/
 
 ## Tagging and Versioning
+When tagging our images, we wish to use the build version of msftkube. This results in images that will be tagged as follows. `kube-agent:<msftkube-build-id>`.
+e.g.
+`kube-agent:1094096`
 msftkube versions are based on succesful VSTS builds. To build the latest version of this container you will need access to the VSTS build definition of msftkube. 
 
 Within a VSTS build definition you can retrieve the build IDs for tagging and versioning a docker image
