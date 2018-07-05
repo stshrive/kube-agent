@@ -1,0 +1,37 @@
+# Default values for vsts-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 2
+
+image:
+  repository: airsharedcontainers.azurecr.io/kube-agent
+  # tag has to be a string, please quote it
+  tag: "1094096"
+  pullPolicy: IfNotPresent
+  # Name of the pre-provisioned imagePullSecret that provides access to the ACR
+  # that hosts the namespace-cleaner image
+  # pullSecrets: 
+  # - "airsharedcontainers"
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+# Following informations are required
+# vsts:
+#   account: <account-name>
+#   work: <work-name>
+#   pool: <pool-name>
+
+# secret value that shouldn't check in to git
+# secrets:
+#   vstsToken: <vsts token>
