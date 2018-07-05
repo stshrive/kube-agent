@@ -3,23 +3,22 @@
 Expand the name of the chart.
 */}}
 {{- define "vsts-agent.name" -}}
-  {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+  {{- default .Chart.Name .Values.nameOverride | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "vsts-agent.fullname" -}}
   {{- if .Values.fullnameOverride -}}
-    {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+    {{- .Values.fullnameOverride | trimSuffix "-" -}}
   {{- else -}}
     {{- $name := default .Chart.Name .Values.nameOverride -}}
     {{- if contains $name .Release.Name -}}
-      {{- .Release.Name | trunc 63 | trimSuffix "-" -}}
+      {{- .Release.Name | trimSuffix "-" -}}
     {{- else -}}
-      {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+      {{- printf "%s-%s" .Release.Name $name | trimSuffix "-" -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
@@ -28,5 +27,5 @@ If release name contains chart name it will be used as a full name.
 Create chart name and version as used by the chart label.
 */}}
 {{- define "vsts-agent.chart" -}}
-  {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+  {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
