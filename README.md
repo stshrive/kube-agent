@@ -5,19 +5,16 @@ kube-agent is a custom VSTS agent container with Python3, kubectl and msftkube p
 ## Deployment
 The kube-agent yaml is a kubernetes deployment specification with a docker-volume precreated for containers. To use the deployment, replace <token> with an appropriate VSTS account PAT and <pool> with the name of agent pool configured on the VSTS account.
 
-Packaged on Docker Hub:
-https://hub.docker.com/r/stshriv/kube-agent/
-
 ## Tagging and Versioning
-msftkube versions are based on succesful VSTS builds. To build the latest version of this container you will need access to the VSTS build definition of msftkube. 
+When tagging our images, we wish to use the build version of msftkube which are based on succesful VSTS builds. This results in images that will be tagged as follows.
 
-Within a VSTS build definition you can retrieve the build IDs for tagging and versioning a docker image
+`kube-agent:<msftkube-build-id>`
 
-e.g.
-`ci/version.sh -v <api-version> -d <build-definition> -t <PAT> -a <account> -p <project> -b <branch-name> -s <build-status> -u <username> -c <number-of-builds-to-retrieve>`
+e.g. `kube-agent:1094096`
+
+To build the latest version of this container you will need access to the VSTS build definition of msftkube. 
 
 ## Continuous Integration
-
 ### setup.sh
 *setup.sh* is the first stage for continuous integration on a VSTS agent machine. This script installs other continuous integration dependencies on the agent machine to ensure the default VSTS agents can run the scripts. Simply add a Shell++ task to your build definition and set the script path to ci/setup.sh with no parameters.
 
@@ -42,6 +39,9 @@ Parameters:
 |      -v       | --version          | float  |          |       4.1         | VSTS REST API version           |
 |      -V       | --verbose          | boolean|          |      False        | Print verbose output            |
 
+e.g.
+`ci/version.sh -v <api-version> -d <build-definition> -t <PAT> -a <account> -p <project> -b <branch-name> -s <build-status> -u <username> -c <number-of-builds-to-retrieve>`
+
 ### render.sh
 *render.sh* handles the creation of version specific dockerfiles by substituting placeholder text within dockerfile.template.
 
@@ -64,7 +64,7 @@ Note that if any optional parameter is specified, all three optional parameters 
 ## Build Definition
 To setup a build definition, do the following.
 
-1. Call setup.sh. If running on a custom agent with dependencies pre-installed, you may skip calling setup.sh
+1. Call setup.sh. (If running on a custom agent with dependencies pre-installed, you may skip calling setup.sh)
 2. Call version.sh
 3. Call render.sh
 4. Call build.sh
