@@ -1,4 +1,4 @@
-FROM airsharedcontainers.azurecr.io/paulgmiller/vstsdropdownloadcore:master AS app
+FROM airsharedcontainers.azurecr.io/vstsdropdownloadcore:master AS app
 FROM microsoft/vsts-agent:ubuntu-16.04-docker-17.12.0-ce-standard
 
 # Get vstsdropdownloadcore's built drop downloader application
