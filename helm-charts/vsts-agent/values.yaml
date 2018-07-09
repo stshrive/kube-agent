@@ -3,6 +3,11 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 2
+maxSurge: 1
+# change maxUnavailable will affect the helm --wait experience
+# the number of pod helm is going to wait for equals replicaCount-maxUnavailable
+# if repliacaCount-maxUnavailable==0, helm won't wait for pod ready
+maxUnavailable: 0
 
 image:
   repository: airsharedcontainers.azurecr.io/kube-agent
