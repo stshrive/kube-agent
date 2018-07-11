@@ -7,7 +7,7 @@ replicaCount: 2
 image:
   repository: airsharedcontainers.azurecr.io/kube-agent
   # tag has to be a string, please quote it
-  tag: "1094096"
+  tag: "1145737"
   pullPolicy: IfNotPresent
   # Name of the pre-provisioned imagePullSecret that provides access to the ACR
   # that hosts the namespace-cleaner image
