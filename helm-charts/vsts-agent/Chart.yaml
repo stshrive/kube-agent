@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "1.0"
 description: A custom VSTS agent container with Python3, kubectl and msftkube preinstalled.
 name: vsts-agent
-version: 0.1.1094096
+version: 0.1.1145737
 home: "https://github.com/stshrive/kube-agent"
 sources:
 - "https://github.com/stshrive/kube-agent/tree/master/scripts"
