@@ -27,6 +27,8 @@ RUN apt-get -qq install -y --no-install-recommends \
 
 RUN python3 -m pip -q install --upgrade pip
 RUN python3 -m pip -q install --upgrade setuptools
+RUN python3 -m pip -q install pyyaml~=4.2b4
+RUN python3 -m pip -q install azure-keyvault==0.3.7 
 
 #task.py in aether uses appliction insights for reporting. 
 RUN python3 -m pip -q install applicationinsights==0.11.3
