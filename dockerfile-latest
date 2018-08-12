@@ -1,8 +1,10 @@
 FROM airsharedcontainers.azurecr.io/vstsdropdownloadcore:master AS app
+FROM airsharedcontainers.azurecr.io/msftkube AS msftkube
 FROM microsoft/vsts-agent:ubuntu-16.04-docker-17.12.0-ce-standard
 
 # Get vstsdropdownloadcore's built drop downloader application
 copy --from=app /app/* /app/
+copy --from=msftkube /msftkube/src/dist/* /msftkube/
 
 RUN apt-get -qq update
 
@@ -27,11 +29,10 @@ RUN apt-get -qq install -y --no-install-recommends \
                 python3-dev \
                 python3-setuptools
 
+# Needed to install the msftkube whl file
 RUN python3 -m pip -q install --upgrade pip
 RUN python3 -m pip -q install --upgrade setuptools
 
-# MSFTKube
-ENV MSFTKUBE_VER %%MSFTKUBE_VERSION%%
-
-RUN rm -rf ~/.cache/pip
-RUN python3 -m pip -q install https://msftkube.blob.core.windows.net/public/msftkube-1.0.$MSFTKUBE_VER-py3-none-any.whl
+# Install the latest verison of msftkube
+# this also installs it's dependencies.
+RUN python3 -m pip -q install /msftkube/*.whl
